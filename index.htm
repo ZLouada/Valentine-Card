@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine?</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffeef2;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 400px;
+            z-index: 10;
+        }
+
+        h1 {
+            color: #d63384;
+            font-size: 24px;
+        }
+
+        .buttons {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            align-items: center;
+        }
+
+        button {
+            padding: 10px 25px;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        #yesBtn {
+            background-color: #ff4d6d;
+            color: white;
+        }
+
+        #noBtn {
+            background-color: #adb5bd;
+            color: white;
+            position: relative;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .success-page {
+            text-align: center;
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .heart {
+            font-size: 50px;
+            color: #ff4d6d;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="questionPage" class="container">
+        <div class="heart">❤️</div>
+        <h1>Do you love me or not?</h1>
+        <p>Think carefully...</p>
+        <div class="buttons">
+            <button id="yesBtn">Yes!</button>
+            <button id="noBtn">No</button>
+        </div>
+    </div>
+
+    <div id="successPage" class="hidden">
+        <div class="container">
+            <div class="heart">💖</div>
+            <h1>I knew it!</h1>
+            <p>To my love and the most beautiful girl in the entire world...</p>
+            <p style="font-style: italic; color: #ff4d6d;">You are my everything! 🌹</p>
+        </div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const questionPage = document.getElementById('questionPage');
+        const successPage = document.getElementById('successPage');
+
+        let yesScale = 1;
+
+        // Make the "No" button move away and the "Yes" button grow
+        noBtn.addEventListener('mouseover', moveButton);
+        noBtn.addEventListener('click', moveButton);
+
+        function moveButton() {
+            // Calculate random position
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+
+            // Make the Yes button bigger every time they try to click No
+            yesScale += 0.2;
+            yesBtn.style.transform = `scale(${yesScale})`;
+        }
+
+        // Show the love message
+        yesBtn.addEventListener('click', () => {
+            questionPage.classList.add('hidden');
+            successPage.classList.remove('hidden');
+            document.body.style.backgroundColor = "#ff4d6d";
+        });
+    </script>
+</body>
+</html>
